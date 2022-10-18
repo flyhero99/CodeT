@@ -1,7 +1,7 @@
 $schema: http://azureml/sdk-2-0/CommandComponent.json
-name: microsoft.msra.dki.verifier_trainer
-display_name: Verifier Train
-version: 0.0.1
+name: microsoft.msra.dki.verifier_attention
+display_name: Create Attention Weights
+version: 0.0.2
 is_deterministic: True
 type: CommandComponent
 description: Create Attention Weights
@@ -20,6 +20,10 @@ inputs:
     optional: false
     description: model_name_or_path
     default: microsoft/deberta-v3-large
+  max_seq_length:
+    type: number
+    description: max_seq_length
+    default: 512
 outputs:
   output_dir:
     type: path
@@ -41,7 +45,6 @@ environment:
       - pip:
         - torch==1.7.0+cu110
         - -f https://download.pytorch.org/whl/torch_stable.html
-        - wandb==0.12.7
         - future
         - numpy==1.20.3
         - transformers==4.6.0
@@ -56,21 +59,17 @@ environment:
         - seqeval
         - conllu
         - multiset
+        - spacy
         - azureml-sdk
         - azureml-dataset-runtime
 successful_return_code: Zero
 meta:
   requireGpu: True
 command: >-
-  export WANDB_API_KEY={your_wandb_api_key} &&
-  export WANDB_PROJECT=deberta-verifier &&
-  export WANDB_RUN_ID={inputs.wandb_run_name} &&
-  export WANDB_TAGS=deberta_verifier &&
-  export NCCL_DEBUG=INFO &&
   cd src &&
   python create_attention_weights.py
   --train_data {inputs.train_data}
   --test_data {inputs.test_data}
   --output_dir {outputs.output_dir}
   --model_name_or_path {inputs.model_name_or_path}
-  --max_seq_length 512
+  --max_seq_length {inputs.max_seq_length}
