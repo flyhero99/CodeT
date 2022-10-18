@@ -56,7 +56,7 @@ def get_args():
             "--test_data", type=str, default="/home/lyf/projects/aml-babel-components/datasets/gsm8k_debug/test.txt", 
             help="help")
     parser.add_argument(
-            "--labels", type=str, default="/home/lyf/projects/aml-babel-components/gsm8k/src/labels.txt", 
+            "--labels", type=str, default="labels.txt", 
             help="help")
     parser.add_argument(
             "--output_dir", type=str, default="/home/lyf/projects/aml-babel-components/gsm8k/src/debug", 
