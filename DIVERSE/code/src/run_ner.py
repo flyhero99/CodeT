@@ -123,7 +123,7 @@ class DataTrainingArguments:
         metadata={"help": "Self attention layer that we are supervising"},
     )
     attention_heads: Optional[int] = field(
-        default=12,  # the last layer
+        default=16,  # the last layer
         metadata={"help": "The number of heads to apply attention supervision to"},
     )
     attention_head_numbers: Optional[str] = field(

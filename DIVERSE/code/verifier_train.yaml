@@ -1,7 +1,7 @@
 $schema: http://azureml/sdk-2-0/CommandComponent.json
 name: microsoft.msra.dki.verifier_trainer
 display_name: Verifier Train
-version: 0.1.2-dev1
+version: 0.1.3
 is_deterministic: True
 type: CommandComponent
 description: Verifier Train
@@ -70,6 +70,31 @@ inputs:
     type: number
     description: The loss weight of stepwise labels, default is 0.0
     default: 0.0
+  sentences_attention_weights_file:
+    type: string
+    description: the path that contains the output file of create_attention_weights.py
+  loss_type:
+    type: str
+    description: set this field to 'kl' if you want to add KL loss item, else use other strings like "not_kl"
+    default: kl
+  attention_layer:
+    type: number
+    description: Self attention layers that we are supervising
+    default: -1  # the last layer
+  attention_head_numbers:
+    type: number
+    description: The number of heads to apply attention supervision to
+    default: 16  # all the heads
+  attention_heads:
+    description: Which attention heads to supervise. Provide as 1,2,3,4 etc.\
+        The number specified must match the attention_heads parameter. \
+        By default the first n attention heads will be supervised \
+        (n from attention_heads parameter)
+    default: default  # all the heads
+  lambda_val:
+    type: number
+    description: The loss weight of KL loss item, if 'loss_type' == 'kl'
+    default: 1.0
   num_train_epochs:
     type: integer
     description: default is 5
@@ -147,3 +172,9 @@ command: >-
   --overwrite_output_dir
   --alpha {inputs.alpha}
   --deepspeed ds_config.json
+  --sentences_attention_weights_file {inputs.sentences_attention_weights_file}
+  [--loss_type {inputs.loss_type}]
+  [--lambda_val {inputs.lambda_val}]
+  [--attention_layer {inputs.attention_layer}]
+  [--attention_head_numbers {inputs.attention_head_numbers}]
+  [--attention_heads {inputs.attention_heads}]
