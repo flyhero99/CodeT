@@ -1393,9 +1393,8 @@ class DebertaV2ForTokenClassification(DebertaV2PreTrainedModel):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
         # code change
-        if self.training is False:
-            self.config.output_attentions = False
-            self.config.output_hidden_states = False
+        self.config.output_attentions = self.training
+        self.config.output_hidden_states = self.training
         # code change finished
 
         # pdb.set_trace()

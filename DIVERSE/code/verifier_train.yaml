@@ -1,7 +1,7 @@
 $schema: http://azureml/sdk-2-0/CommandComponent.json
 name: microsoft.msra.dki.verifier_trainer
 display_name: Verifier Train
-version: 0.1.12
+version: 0.1.15
 is_deterministic: True
 type: CommandComponent
 description: Verifier Train
