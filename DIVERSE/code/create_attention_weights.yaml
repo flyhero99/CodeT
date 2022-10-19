@@ -1,7 +1,7 @@
 $schema: http://azureml/sdk-2-0/CommandComponent.json
 name: microsoft.msra.dki.verifier_attention
 display_name: Create Attention Weights
-version: 0.0.2
+version: 0.0.3
 is_deterministic: True
 type: CommandComponent
 description: Create Attention Weights

@@ -1438,7 +1438,7 @@ class DebertaV2ForTokenClassification(DebertaV2PreTrainedModel):
         # pdb.set_trace()
         
         # for calculating KL
-        if self.config.task_specific_params["loss_type"] == 'kl':
+        if self.config.task_specific_params["loss_type"] == 'kl' and self.training:
             size_in_batch = input_ids.shape[0]
             seq_len = input_ids.shape[1]
             attention_output = outputs['attentions'][self.config.task_specific_params["attention_layer"]]  # by default -1

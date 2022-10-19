@@ -252,7 +252,7 @@ def main():
 
     # code change about KL loss
     if data_args.loss_type == 'kl':
-        with open(data_args.sentences_attention_weights_file, "rb") as fp:
+        with open(utils_io.get_file(data_args.sentences_attention_weights_file), "rb") as fp:
             weights_all_sentences = pickle.load(fp)
         config.task_specific_params["weights_all_sentences"] = weights_all_sentences
         config.task_specific_params["attention_layer"] = data_args.attention_layer

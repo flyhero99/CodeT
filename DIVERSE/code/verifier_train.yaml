@@ -1,7 +1,7 @@
 $schema: http://azureml/sdk-2-0/CommandComponent.json
 name: microsoft.msra.dki.verifier_trainer
 display_name: Verifier Train
-version: 0.1.5
+version: 0.1.12
 is_deterministic: True
 type: CommandComponent
 description: Verifier Train
@@ -81,11 +81,11 @@ inputs:
     type: number
     description: Self attention layers that we are supervising
     default: -1  # the last layer
-  attention_head_numbers:
+  attention_heads:
     type: number
     description: The number of heads to apply attention supervision to
     default: 16  # all the heads
-  attention_heads:
+  attention_head_numbers:
     type: string
     description: Which attention heads to supervise. Provide as 1,2,3,4 etc. The number specified must match the attention_heads parameter. By default the first n attention heads will be supervised (n from attention_heads parameter)
     default: default  # all the heads
@@ -152,7 +152,7 @@ command: >-
   --output_dir {outputs.output_dir}
   --max_seq_length 512
   --per_device_train_batch_size {inputs.per_device_batch_size}
-  --per_device_eval_batch_size 64
+  --per_device_eval_batch_size 8
   --save_strategy {inputs.save_strategy}
   --evaluation_strategy {inputs.evaluation_strategy}
   --learning_rate {inputs.learning_rate}
